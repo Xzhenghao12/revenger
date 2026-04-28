@@ -1,16 +1,16 @@
 import inspect
 
-def get_and_run_classes(module):
-    # 1. 获取模块中的所有成员
-    # inspect.isclass 过滤出类
-    classes = inspect.getmembers(module, inspect.isclass)
-    names = []
-    instances = []
-    for name, cls in classes:
-        # 2. 检查类是否是在该文件中定义的（排除导入的类）
-        if cls.__module__ == module.__name__:
-            # 3. 实例化类并调用方法
-            instances.append(cls())
-            names.append(name)
+def get_all_classes(module):
+    """
+    获取模块中所有自定义类
+    返回：字典 {类名: 类对象}
+    """
+    class_dict = {}
 
-    return names, instances
+    # 遍历模块成员，筛选出 class 类型
+    for name, obj in inspect.getmembers(module, inspect.isclass):
+        # 只保留当前模块定义的类（排除导入进来的类）
+        if obj.__module__ == module.__name__:
+            class_dict[name] = obj
+
+    return class_dict
