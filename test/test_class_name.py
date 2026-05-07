@@ -14,16 +14,3 @@ if __name__ == "__main__":
         if class_name == "ExternalServer":
             myclass = class_obj()
             myclass.run()
-
-
-
-
-
-
-
-
-
-
-
-
-
